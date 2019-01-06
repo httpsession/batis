@@ -1,8 +1,9 @@
 package com.jack.app.dao;
 
 import com.jack.app.domain.User;
-import com.jack.batis.anno.Mapper;
-import com.jack.batis.anno.Select;
+import com.jack.batis.annotation.Delete;
+import com.jack.batis.annotation.Mapper;
+import com.jack.batis.annotation.Select;
 
 /** 
 * @author	longjie 
@@ -13,4 +14,7 @@ import com.jack.batis.anno.Select;
 public interface UserDao {
 	@Select("select * from mall_user")
 	public User getUserById(String userId);
+	
+	@Delete("delete from mall_user where id= #{id}")
+	public int deleteUserById(String id);
 }

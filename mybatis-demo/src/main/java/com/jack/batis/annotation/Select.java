@@ -1,4 +1,4 @@
-package com.jack.batis.anno;
+package com.jack.batis.annotation;
 /** 
 * @author	longjie 
 * @mail 	httpsession@qq.com

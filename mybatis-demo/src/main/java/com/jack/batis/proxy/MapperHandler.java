@@ -1,12 +1,12 @@
 package com.jack.batis.proxy;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-import com.jack.batis.anno.Select;
 import com.jack.batis.core.Configuration;
 import com.jack.batis.core.SqlSession;
+import com.jack.batis.utils.Action;
+import com.jack.batis.utils.ActionAndSql;
 
 /** 
 * @author	longjie 
@@ -22,19 +22,31 @@ public class MapperHandler implements InvocationHandler {
 	}
 	
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		/*Annotation[] annos = method.getDeclaredAnnotations();
-		for (Annotation annotation : annos) {
-			Class<? extends Annotation> annoClz = annotation.annotationType();
-			if(annoClz==Select.class){
-				
-			}
-		}*/
-		String clazzName = method.getDeclaringClass().getName();
-		if(Configuration.namespace.equals(clazzName)){
-			String sql=Configuration.mapStateMent.get(method.getName());
-			return sqlSession.selectOne(sql, String.valueOf(args[0]));
+		String key= method.getDeclaringClass().getName()+"."+method.getName();
+		ActionAndSql actionAndSql=Configuration.statementMap.get(key);
+		Object result=null;
+		switch(actionAndSql.getAction()){
+			case Action.select:
+				result=sqlSession.select(actionAndSql.getSql(), args);
+				break;
+			case Action.update:
+				result=sqlSession.update(actionAndSql.getSql(), args);
+				break;
+			case Action.insert:
+				result=sqlSession.insert(actionAndSql.getSql(), args);
+				break;
+			case Action.delete:
+				result=sqlSession.delete(actionAndSql.getSql(), args);
+				break;
+			default:
+				throw new RuntimeException("Error! illegal operation!");
 		}
-		return null;
+		return result;
 	}
 
+	
+	/*if(Configuration.namespace.equals(clazzName)){
+	String sql=Configuration.mapStateMent.get(method.getName());
+	return sqlSession.selectOne(sql, String.valueOf(args[0]));
+	}*/
 }
