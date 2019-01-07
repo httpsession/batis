@@ -15,6 +15,6 @@ public interface UserDao {
 	@Select("select * from mall_user")
 	public User getUserById(String userId);
 	
-	@Delete("delete from mall_user where id= #{id}")
-	public int deleteUserById(String id);
+	@Delete("delete from sys_user where user_id= #{userId}")
+	public int deleteUserById(String userId);
 }

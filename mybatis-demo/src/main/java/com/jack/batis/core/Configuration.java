@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
 import com.jack.batis.annotation.Delete;
 import com.jack.batis.annotation.Insert;
@@ -47,6 +48,7 @@ public class Configuration {
 				putToStatementMap(clzName,clz);
 			}
 		}
+		System.out.println(JSONObject.toJSONString(statementMap));
 	}
 	
 	/**

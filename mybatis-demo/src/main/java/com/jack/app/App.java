@@ -1,13 +1,8 @@
 package com.jack.app;
 
-import java.util.Map;
 
-import com.alibaba.fastjson.JSON;
 import com.jack.app.dao.UserDao;
-import com.jack.app.domain.User;
-import com.jack.batis.core.Configuration;
-import com.jack.batis.core.SqlSession;
-import com.jack.batis.utils.ActionAndSql;
+import com.jack.batis.Batis;
 
 /** 
 * @author	longjie 
@@ -16,17 +11,9 @@ import com.jack.batis.utils.ActionAndSql;
 */
 public class App {
 	public static void main(String[] args) {
-		Configuration.mapperScanner("com.jack.app.dao");
-		Map<String, ActionAndSql> map = Configuration.statementMap;
-		System.out.println(JSON.toJSONString(map));
+		Batis.init("com.jack.app.dao");
+		UserDao mapper =Batis.getMapper(UserDao.class);
+		int count=mapper.deleteUserById("4");
+		System.out.println("delete "+count+" row record!");
 	}
-	
-	/**
-	 public static void main(String[] args) {
-		SqlSession sqlSession = new SqlSession();
-		UserDao mapper = sqlSession.getMapper(UserDao.class);
-		User user = mapper.getUserById("TEST1");
-		System.out.println(user);
-	}
-	 */
 }

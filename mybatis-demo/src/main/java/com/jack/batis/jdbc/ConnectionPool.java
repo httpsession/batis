@@ -10,8 +10,8 @@ import java.util.Stack;
 * @date 	2019年1月6日 下午5:30:57 
 */
 public class ConnectionPool {
-	private String driver="com.mysql.jdbc.Driver";
-	private String url="jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
+	private String driver="com.mysql.cj.jdbc.Driver";
+	private String url="jdbc:mysql://localhost:3306/medicalcare?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
 	private String username="root";
 	private String password="123456";
 	private Stack<Connection> stack;

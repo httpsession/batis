@@ -2,6 +2,7 @@ package com.jack.batis.proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 
 import com.jack.batis.core.Configuration;
 import com.jack.batis.core.SqlSession;
@@ -27,21 +28,22 @@ public class MapperHandler implements InvocationHandler {
 		Object result=null;
 		switch(actionAndSql.getAction()){
 			case Action.select:
-				result=sqlSession.select(actionAndSql.getSql(), args);
+				result=sqlSession.select(method,actionAndSql.getSql(), args);
 				break;
 			case Action.update:
-				result=sqlSession.update(actionAndSql.getSql(), args);
+				result=sqlSession.update(method,actionAndSql.getSql(), args);
 				break;
 			case Action.insert:
-				result=sqlSession.insert(actionAndSql.getSql(), args);
+				result=sqlSession.insert(method,actionAndSql.getSql(), args);
 				break;
 			case Action.delete:
-				result=sqlSession.delete(actionAndSql.getSql(), args);
+				result=sqlSession.delete(method,actionAndSql.getSql(), args);
 				break;
 			default:
 				throw new RuntimeException("Error! illegal operation!");
 		}
 		return result;
+		
 	}
 
 	
