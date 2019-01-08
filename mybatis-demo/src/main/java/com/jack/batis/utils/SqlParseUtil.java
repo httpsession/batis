@@ -11,8 +11,8 @@ public class SqlParseUtil {
 
 	/**
 	 * 静态参数 初始化
-	 * @param sql
-	 * @param params
+	 * @param sql  参数还未被映射的sql语句
+	 * @param params  放置着参数名与参数值的map
 	 * @return
 	 */
 	public static String parse(String sql, Map<String, String> params) {

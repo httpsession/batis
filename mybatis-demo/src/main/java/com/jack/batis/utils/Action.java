@@ -1,8 +1,11 @@
 package com.jack.batis.utils;
 /** 
 * @author	longjie 
-* @mail 	httpsession@qq.com
 * @date 	2019年1月6日 下午4:13:09 
+* 
+*   
+*   SQL执行的操作类型
+* 
 */
 public interface Action {
 	final int select=1;

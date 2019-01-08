@@ -1,10 +1,13 @@
 package com.jack.app;
 
 
+import java.lang.reflect.Method;
+
 import com.alibaba.fastjson.JSONObject;
 import com.jack.app.dao.UserDao;
 import com.jack.batis.Batis;
 import com.jack.batis.annotation.Select;
+import com.jack.batis.utils.MethodUtil;
 
 /** 
 * @author	longjie 
@@ -14,9 +17,22 @@ import com.jack.batis.annotation.Select;
 public class App {
 	public static void main(String[] args) {
 		//指定dao层所在的包
-		Batis.init("com.jack.app.dao");
+		/*Batis.init("com.jack.app.dao");
 		UserDao userDao =Batis.getMapper(UserDao.class);
 		String json = JSONObject.toJSONString(userDao.getUserById("6"));
-		System.out.println(json);
+		System.out.println(json);*/
+		try {
+			Class<?> clz = Class.forName("com.jack.batis.execute.Excutor");
+			Method[] methods = clz.getMethods();
+			for (Method method : methods) {
+				String returnType=method.getReturnType().toString();
+				String returnTypeToGenericString=method.getReturnType().toGenericString();
+				String genericReturnType =MethodUtil.extract(method.getGenericReturnType().toString()) ;
+				System.out.println(returnType+"--------"+genericReturnType+"----------"+returnTypeToGenericString);
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

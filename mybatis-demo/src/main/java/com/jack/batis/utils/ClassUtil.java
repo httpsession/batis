@@ -15,16 +15,15 @@ import com.google.common.base.Strings;
 
 /** 
 * @author	longjie 
-* @mail 	httpsession@qq.com
 * @date 	2019年1月6日 下午12:16:11 
 */
 public class ClassUtil {
 	/**
-	 * 扫描指定包，将包内的类的类名放到set中
-	 * @param packageName
-	 * @param isRecursion
+	   *   扫描指定包，将包内的类的类名放到set中
+	 * @param packageName 包名  
+	 * @param isRecursion 是否递归查找
 	 * @return
-	 * @throws Exception Set<String>
+	 * @throws Exception 
 	 */
 	public static Set<String> getClassName(String packageName, boolean isRecursion) throws Exception {
         Set<String> classNames = null;

@@ -1,6 +1,6 @@
 package com.jack.batis.utils;
 /** 
-*    封装dao类中的方法的sql语句及操作
+*    封装dao类中的方法注解上的sql语句及操作类型
 * @author	longjie 
 * @date 	2019年1月6日 下午3:53:56 
 */

@@ -1,12 +1,10 @@
 package com.jack.batis.core;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
 import com.jack.batis.annotation.Delete;
 import com.jack.batis.annotation.Insert;
@@ -19,7 +17,6 @@ import com.jack.batis.utils.ActionAndSql;
 
 /** 
 * @author	longjie 
-* @mail 	httpsession@qq.com
 * @date 	2018年12月25日 下午3:53:23 
 */
 public class Configuration {
@@ -27,29 +24,30 @@ public class Configuration {
 	
 	/**
 	 * scan mapper in packageName
-	 * @param packageName void
+	   *  在指定的包中扫描Mapper
+	 * @param packageName 
 	 */
 	public static void mapperScanner(String packageName){
 		ClassLoader clzLoader = Thread.currentThread().getContextClassLoader();
-		Set<String> clzNames=null;
+		Set<String> clzNameSet=null;
 		 try {
-			 clzNames = ClassUtil.getClassName(packageName, true);
+			 clzNameSet = ClassUtil.getClassName(packageName, true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		Class<?> clz=null;
-		for (String clzName : clzNames) {
+		for (String clzName : clzNameSet) {
 			try {
 				//load class
 				clz=clzLoader.loadClass(clzName);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
+			//if class annotated by @Mapper,put the sql in method into statement map
 			if(isAnnotatedByMapper(clz)){
 				putToStatementMap(clzName,clz);
 			}
 		}
-		System.out.println(JSONObject.toJSONString(statementMap));
 	}
 	
 	/**
@@ -60,11 +58,7 @@ public class Configuration {
 	@SuppressWarnings("rawtypes") 
 	private static void putToStatementMap(String clzName,Class clz){
 		Method[] methods = clz.getMethods();
-		Type returnType = null;
 		for (Method method : methods) {
-			returnType= method.getGenericReturnType();
-			 
-			String clazzName = method.getDeclaringClass().getName();
 			if(method.isAnnotationPresent(Select.class)){
 				Select select = method.getAnnotation(Select.class);
 				String sql=select.value();
@@ -79,7 +73,7 @@ public class Configuration {
 				if(!Strings.isNullOrEmpty(sql)){
 					statementMap.put(clzName+"."+method.getName(), new ActionAndSql(Action.update,sql));
 				}else{
-					throw new RuntimeException("Error! Your @Select has no value!");
+					throw new RuntimeException("Error! Your @Update t has no value!");
 				}
 			}else if(method.isAnnotationPresent(Insert.class)){
 				Insert insert = method.getAnnotation(Insert.class);
@@ -87,7 +81,7 @@ public class Configuration {
 				if(!Strings.isNullOrEmpty(sql)){
 					statementMap.put(clzName+"."+method.getName(), new ActionAndSql(Action.insert,sql));
 				}else{
-					throw new RuntimeException("Error! Your @Select has no value!");
+					throw new RuntimeException("Error! Your @Insert has no value!");
 				}
 			}else if(method.isAnnotationPresent(Delete.class)){
 				Delete delete = method.getAnnotation(Delete.class);
@@ -95,7 +89,7 @@ public class Configuration {
 				if(!Strings.isNullOrEmpty(sql)){
 					statementMap.put(clzName+"."+method.getName(), new ActionAndSql(Action.delete,sql));
 				}else{
-					throw new RuntimeException("Error! Your @Select has no value!");
+					throw new RuntimeException("Error! Your @Delete has no value!");
 				}
 			}
 		}

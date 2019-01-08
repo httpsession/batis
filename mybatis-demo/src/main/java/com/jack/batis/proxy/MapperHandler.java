@@ -1,9 +1,7 @@
 package com.jack.batis.proxy;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 
 import com.jack.batis.core.Configuration;
 import com.jack.batis.core.SqlSession;
@@ -12,7 +10,6 @@ import com.jack.batis.utils.ActionAndSql;
 
 /** 
 * @author	longjie 
-* @mail 	httpsession@qq.com
 * @date 	2018年12月25日 下午5:43:13 
 */
 public class MapperHandler implements InvocationHandler {

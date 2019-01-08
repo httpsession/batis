@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.util.Stack;
 
 /** 
+*    简陋的数据连接池 
 * @author	longjie 
-* @mail 	httpsession@qq.com
 * @date 	2019年1月6日 下午5:30:57 
 */
 public class ConnectionPool {
@@ -15,7 +15,7 @@ public class ConnectionPool {
 	private String username="root";
 	private String password="123456";
 	private Stack<Connection> stack;
-	private static ConnectionPool singleton;
+	private static ConnectionPool singleton;//单例
 	
 	static{
 		singleton=new ConnectionPool();

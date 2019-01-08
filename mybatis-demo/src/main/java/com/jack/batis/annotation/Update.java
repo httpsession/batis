@@ -9,7 +9,6 @@ import com.jack.batis.utils.Action;
 
 /** 
 * @author	longjie 
-* @mail 	httpsession@qq.com
 * @date 	2019年1月6日 上午10:11:46 
 */
 @Retention(RetentionPolicy.RUNTIME)

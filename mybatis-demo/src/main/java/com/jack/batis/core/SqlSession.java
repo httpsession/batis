@@ -9,11 +9,11 @@ import java.util.List;
 import com.jack.batis.execute.Excutor;
 import com.jack.batis.execute.SimpleExcutor;
 import com.jack.batis.proxy.MapperHandler;
+import com.jack.batis.utils.MethodUtil;
 import com.jack.batis.utils.SqlParseUtil;
 
 /** 
 * @author	longjie 
-* @mail 	httpsession@qq.com
 * @date 	2018年12月25日 下午4:16:21 
 */
 public class SqlSession {
@@ -26,12 +26,12 @@ public class SqlSession {
 	public List select(Method method,String sql,Object[] parameter){
 		sql=processSql(method,sql,parameter);
 		//get return type of method
-		String type = method.getGenericReturnType().toString();
+		String retType = MethodUtil.extract(method.getGenericReturnType().toString());
 		ClassLoader clzLoader = Thread.currentThread().getContextClassLoader();
 		Class<?> returnClz=null;
 		try {
 			//load return type's class
-			returnClz = clzLoader.loadClass("com.jack.app.domain.User");
+			returnClz = clzLoader.loadClass(retType);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
