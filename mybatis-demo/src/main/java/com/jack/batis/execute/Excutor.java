@@ -1,11 +1,14 @@
 package com.jack.batis.execute;
+
+import java.util.List;
+
 /** 
 * @author	longjie 
 * @mail 	httpsession@qq.com
 * @date 	2018年12月25日 下午4:16:46 
 */
 public interface Excutor {
-	public <T> T select(String sql);
+	public  List select(String sql, Class beanClz) ;
 	
 	public int delete(String sql);
 	

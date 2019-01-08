@@ -1,8 +1,10 @@
 package com.jack.app;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.jack.app.dao.UserDao;
 import com.jack.batis.Batis;
+import com.jack.batis.annotation.Select;
 
 /** 
 * @author	longjie 
@@ -11,9 +13,10 @@ import com.jack.batis.Batis;
 */
 public class App {
 	public static void main(String[] args) {
+		//指定dao层所在的包
 		Batis.init("com.jack.app.dao");
-		UserDao mapper =Batis.getMapper(UserDao.class);
-		int count=mapper.deleteUserById("4");
-		System.out.println("delete "+count+" row record!");
+		UserDao userDao =Batis.getMapper(UserDao.class);
+		String json = JSONObject.toJSONString(userDao.getUserById("6"));
+		System.out.println(json);
 	}
 }

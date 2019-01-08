@@ -1,5 +1,6 @@
 package com.jack.batis.proxy;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -43,12 +44,5 @@ public class MapperHandler implements InvocationHandler {
 				throw new RuntimeException("Error! illegal operation!");
 		}
 		return result;
-		
 	}
-
-	
-	/*if(Configuration.namespace.equals(clazzName)){
-	String sql=Configuration.mapStateMent.get(method.getName());
-	return sqlSession.selectOne(sql, String.valueOf(args[0]));
-	}*/
 }

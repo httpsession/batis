@@ -1,5 +1,7 @@
 package com.jack.app.dao;
 
+import java.util.List;
+
 import com.jack.app.domain.User;
 import com.jack.batis.annotation.Delete;
 import com.jack.batis.annotation.Mapper;
@@ -12,8 +14,8 @@ import com.jack.batis.annotation.Select;
 */
 @Mapper
 public interface UserDao {
-	@Select("select * from mall_user")
-	public User getUserById(String userId);
+	@Select("select * from sys_user where user_id=#{userId}")
+	public List<User> getUserById(String userId);
 	
 	@Delete("delete from sys_user where user_id= #{userId}")
 	public int deleteUserById(String userId);

@@ -1,6 +1,7 @@
 package com.jack.batis.core;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -59,7 +60,10 @@ public class Configuration {
 	@SuppressWarnings("rawtypes") 
 	private static void putToStatementMap(String clzName,Class clz){
 		Method[] methods = clz.getMethods();
+		Type returnType = null;
 		for (Method method : methods) {
+			returnType= method.getGenericReturnType();
+			 
 			String clazzName = method.getDeclaringClass().getName();
 			if(method.isAnnotationPresent(Select.class)){
 				Select select = method.getAnnotation(Select.class);

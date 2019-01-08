@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
+import java.util.List;
 
 import com.jack.batis.execute.Excutor;
 import com.jack.batis.execute.SimpleExcutor;
@@ -18,11 +19,32 @@ import com.jack.batis.utils.SqlParseUtil;
 public class SqlSession {
 	private Excutor executor =new SimpleExcutor();
 	
-	public <T> T select(Method method,String sql,Object[] parameter){
+	/**
+	 * Execute query
+	   *   执行查询
+	 */
+	public List select(Method method,String sql,Object[] parameter){
 		sql=processSql(method,sql,parameter);
-		return executor.select(sql);
+		//get return type of method
+		String type = method.getGenericReturnType().toString();
+		ClassLoader clzLoader = Thread.currentThread().getContextClassLoader();
+		Class<?> returnClz=null;
+		try {
+			//load return type's class
+			returnClz = clzLoader.loadClass("com.jack.app.domain.User");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return executor.select(sql,returnClz);
 	}
 	
+	/**
+	 * 
+	 * @param method
+	 * @param sql
+	 * @param parameter
+	 * @return
+	 */
 	public int delete(Method method,String sql,Object[] parameter){
 		sql=processSql(method,sql,parameter);
 		return executor.delete(sql);
@@ -39,7 +61,8 @@ public class SqlSession {
 	}
 	
 	/**
-	 * To Process the sql,which will replace the placeholder with param
+	 * To process the sql,which will replace the placeholder with param
+	   *   将方法的参数值映射到sql语句中占位符
 	 * @param sql
 	 * @param parameter
 	 * @return String
@@ -50,8 +73,8 @@ public class SqlSession {
 		String processedSql=null;
 		if(params.length==args.length) {
 			for(int i=0;i<params.length;++i) {
-				//paramAndValuePair.put(params[i].getName(), String.valueOf(args[i]));
-				paramAndValuePair.put("userId", String.valueOf(args[i]));
+				paramAndValuePair.put(params[i].getName(), String.valueOf(args[i]));
+				//paramAndValuePair.put("userId", String.valueOf(args[i]));
 			}
 			processedSql=SqlParseUtil.parse(sql,paramAndValuePair);
 		}

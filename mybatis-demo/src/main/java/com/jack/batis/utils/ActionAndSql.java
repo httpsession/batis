@@ -1,7 +1,7 @@
 package com.jack.batis.utils;
 /** 
+*    封装dao类中的方法的sql语句及操作
 * @author	longjie 
-* @mail 	httpsession@qq.com
 * @date 	2019年1月6日 下午3:53:56 
 */
 public class ActionAndSql {

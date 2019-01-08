@@ -1,11 +1,16 @@
 package com.jack.batis.execute;
 
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.google.common.base.CaseFormat;
 import com.jack.app.domain.User;
 import com.jack.batis.jdbc.ConnectionPool;
 
@@ -16,25 +21,24 @@ import com.jack.batis.jdbc.ConnectionPool;
  */
 public class SimpleExcutor implements Excutor {
 
-	public <T> T select(String sql) {
+	public  List select(String sql, Class beanClz) {
 		PreparedStatement preparedStatement = null;
 		ResultSet set = null;
 		Connection connection = ConnectionPool.getConnection();
-		User user=null;
+		User user = null;
+		List list=new ArrayList();
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			set = preparedStatement.executeQuery();
-			user = new User();
+			Object bean =null;
 			while (set.next()) {
-				user.setUserId(set.getString("user_id"));
-				user.setUserMail(set.getString("user_mail"));
-				user.setUserPassword(set.getString("user_password"));
+				bean= toBean(set,beanClz);
+				list.add(bean);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return (T) user;
+		return list;
 	}
 
 	public int delete(String sql) {
@@ -63,16 +67,23 @@ public class SimpleExcutor implements Excutor {
 		return 0;
 	}
 
-	/*
-	 * public <T> T query(String sql, Object parameter) { PreparedStatement
-	 * preparedStatement=null; Connection
-	 * connection=ConnectionPool.getConnection(); User user=new User(); try {
-	 * preparedStatement=connection.prepareStatement(sql);
-	 * preparedStatement.setString(1,parameter.toString()); ResultSet set =
-	 * preparedStatement.executeQuery(); while(set.next()){
-	 * user.setUserId(set.getString("user_id"));
-	 * user.setUserMail(set.getString("user_mail"));
-	 * user.setUserPassword(set.getString("user_password")); } } catch
-	 * (SQLException e) { e.printStackTrace(); } return (T)user; }
-	 */
+	private Object toBean(ResultSet resultSet, Class beanClz) throws Exception {
+		if (beanClz == null) {
+			throw new RuntimeException("Error! bean class is null");
+		}
+		ResultSetMetaData metaData = null;
+		Object bean = beanClz.newInstance();
+
+		metaData = resultSet.getMetaData();
+		int cols = metaData.getColumnCount();
+		String columnName = null;
+		PropertyDescriptor pd = null;
+		for (int i = 1; i <= cols; ++i) {
+			columnName=CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, metaData.getColumnName(i));
+			pd = new PropertyDescriptor(columnName, beanClz);
+			Method wM = pd.getWriteMethod();
+			wM.invoke(bean, resultSet.getString(i));
+		}
+		return bean;
+	}
 }

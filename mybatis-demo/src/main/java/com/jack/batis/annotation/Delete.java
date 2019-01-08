@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.jack.batis.utils.Action;
+
 /** 
 * @author	longjie 
 * @mail 	httpsession@qq.com
@@ -14,4 +16,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Delete{
 	 String value();
+	 final int action=Action.delete;
 }

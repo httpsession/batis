@@ -6,28 +6,76 @@ package com.jack.app.domain;
 */
 public class User {
 	private String userId;
-	private String userPassword;
-	private String userMail;
+	private String userCode;
+	private String userName;
+	private String status;
+	private String password;
+	private String createDate;
+	private String createBy;
+	private String lastUpdateDate;
+	private String lastUpdateBy;
+	private String roleId;
 	public String getUserId() {
 		return userId;
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getUserPassword() {
-		return userPassword;
+	public String getUserCode() {
+		return userCode;
 	}
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
 	}
-	public String getUserMail() {
-		return userMail;
+	public String getUserName() {
+		return userName;
 	}
-	public void setUserMail(String userMail) {
-		this.userMail = userMail;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", userPassword=" + userPassword + ", userMail=" + userMail + "]";
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+	public String getCreateBy() {
+		return createBy;
+	}
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+	public String getLastUpdateDate() {
+		return lastUpdateDate;
+	}
+	public void setLastUpdateDate(String lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
+	}
+	public String getLastUpdateBy() {
+		return lastUpdateBy;
+	}
+	public void setLastUpdateBy(String lastUpdateBy) {
+		this.lastUpdateBy = lastUpdateBy;
+	}
+	public String getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
+	public User() {
+		super();
 	}
 }
