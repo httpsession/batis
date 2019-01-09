@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import com.alibaba.fastjson.JSONObject;
 import com.jack.app.dao.UserDao;
 import com.jack.batis.Batis;
-import com.jack.batis.annotation.Select;
+import com.jack.batis.annotation.sql.Select;
 import com.jack.batis.utils.MethodUtil;
 
 /** 
@@ -34,5 +34,7 @@ public class App {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		ClassPathXmlApplicationContext ;
+		BeanFactory;
 	}
 }

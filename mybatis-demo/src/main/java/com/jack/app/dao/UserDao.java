@@ -3,9 +3,9 @@ package com.jack.app.dao;
 import java.util.List;
 
 import com.jack.app.domain.User;
-import com.jack.batis.annotation.Delete;
 import com.jack.batis.annotation.Mapper;
-import com.jack.batis.annotation.Select;
+import com.jack.batis.annotation.sql.Delete;
+import com.jack.batis.annotation.sql.Select;
 
 /** 
 * @author	longjie 

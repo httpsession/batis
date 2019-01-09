@@ -6,11 +6,11 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.common.base.Strings;
-import com.jack.batis.annotation.Delete;
-import com.jack.batis.annotation.Insert;
 import com.jack.batis.annotation.Mapper;
-import com.jack.batis.annotation.Select;
-import com.jack.batis.annotation.Update;
+import com.jack.batis.annotation.sql.Delete;
+import com.jack.batis.annotation.sql.Insert;
+import com.jack.batis.annotation.sql.Select;
+import com.jack.batis.annotation.sql.Update;
 import com.jack.batis.utils.Action;
 import com.jack.batis.utils.ClassUtil;
 import com.jack.batis.utils.ActionAndSql;

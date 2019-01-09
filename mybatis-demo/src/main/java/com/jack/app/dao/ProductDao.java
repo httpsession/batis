@@ -1,7 +1,7 @@
 package com.jack.app.dao;
 
 import com.jack.batis.annotation.Mapper;
-import com.jack.batis.annotation.Update;
+import com.jack.batis.annotation.sql.Update;
 
 /** 
 * @author	longjie 
