@@ -73,8 +73,8 @@ public class SqlSession {
 		String processedSql=null;
 		if(params.length==args.length) {
 			for(int i=0;i<params.length;++i) {
-				paramAndValuePair.put(params[i].getName(), String.valueOf(args[i]));
-				//paramAndValuePair.put("userId", String.valueOf(args[i]));
+				//paramAndValuePair.put(params[i].getName(), String.valueOf(args[i]));
+				paramAndValuePair.put("userId", String.valueOf(args[i]));
 			}
 			processedSql=SqlParseUtil.parse(sql,paramAndValuePair);
 		}

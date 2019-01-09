@@ -1,6 +1,11 @@
 package com.jack.batis.beans;
 
-public interface JackBean {
+public interface JackBean<T> {
+	
+	T getInstance();
+	
+	void setInstance(T instance);
+	
 	String getParentName();
 	
 	void setParentName(String parentName);
@@ -16,4 +21,7 @@ public interface JackBean {
 	void setAbstract(boolean isAbstract);
 	
 	boolean isAbstract();
+	
+
+	
 }
