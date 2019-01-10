@@ -1,9 +1,8 @@
 package com.jack.batis.beans;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,9 +15,15 @@ import com.jack.batis.annotation.Service;
 import com.jack.batis.utils.ClassUtil;
 
 public class DefaultBeanFactory implements BeanFactory{
-	
+	//bean容器，保存所有的bean均保存于此
 	private static HashMap<String,JackBean> beanContainer=new HashMap<String,JackBean>();
 
+	/**
+	   * 对beanFactory进行初始化，实例化使用@Mapper、@Bean、@Service等注解的类，目前仅been均为单例
+	 * @param classpath
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
 	@SuppressWarnings("unchecked")
 	public static void init(String classpath) throws InstantiationException, IllegalAccessException {
 		ClassLoader clzLoader = Thread.currentThread().getContextClassLoader();
@@ -54,14 +59,7 @@ public class DefaultBeanFactory implements BeanFactory{
 				beanContainer.put(clz.getName(), bean);
 			}
 		}
-		//对bean中的成员变量进行赋值
-		/*Set<Entry<String, JackBean>> entrys = beanContainer.entrySet();
-		
-		for (Entry<String, JackBean> entry : entrys) {
-			
-		}
-*/
-		
+		//对容器中的bean进行初始化，对bean中的使用了@Autowired成员变量进行赋值
 		for (String clzName : clzNameSet) {
 			try {
 				//load class
@@ -71,27 +69,27 @@ public class DefaultBeanFactory implements BeanFactory{
 			}
 			JackBean bean = beanContainer.get(clzName);
 			Field[] fields = clz.getDeclaredFields();
-			String fieldsJson = JSONObject.toJSONString(fields);
-			System.out.println("fieldsJson: "+fieldsJson);
+			//String fieldsJson = JSONObject.toJSONString(fields);
+			//System.out.println("fieldsJson: "+fieldsJson);
 			for (Field field : fields) {
 				if(field.isAnnotationPresent(Autowired.class)){
 					Class<?> type = field.getType();
 					Object fieldValue = beanContainer.get(type.getName()).getInstance();
 					field.setAccessible(true);
+					//如果是对象
 					if(bean!=null) {
 						field.set(bean.getInstance(), fieldValue);
-					}else {
+					//如果bean为null且字段为静态
+					}else if(Modifier.isStatic(field.getModifiers())){
 						field.set(null, fieldValue);
 					}
-					
 				}
 			}
 		}
-		String json = JSONObject.toJSONString(beanContainer);
-		System.out.println("beanContainer: "+json);
+		//String json = JSONObject.toJSONString(beanContainer);
+		//System.out.println("beanContainer: "+json);
 	}
 
-	@SuppressWarnings("unused")
 	private static boolean isBean(Class<?> clz) {
 		Objects.requireNonNull(clz);
 		if(clz.isAnnotationPresent(Bean.class)||clz.isAnnotationPresent(Mapper.class)||clz.isAnnotationPresent(Service.class)) {

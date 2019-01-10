@@ -49,12 +49,13 @@ public class Configuration {
 				putToStatementMap(clzName,clz);
 			}
 		}
-		String json = JSONObject.toJSONString(statementMap);
-		System.out.println(json);
+		//String json = JSONObject.toJSONString(statementMap);
+		//System.out.println(json);
 	}
 	
 	/**
 	 * put sql statement which annotated in method into statementMap
+	 *    以“dao层类名+方法”为key，SQL为value保存到map中
 	 * @param clzName
 	 * @param clz 
 	 */
@@ -98,6 +99,9 @@ public class Configuration {
 		}
 	}
 	
+	/*
+	 * 如果类被@Mapper所注解，则返回true，否则返回false
+	 */
 	private static boolean isAnnotatedByMapper(Class<?> clz){
 		if(clz!=null){
 			if(clz.isAnnotationPresent(Mapper.class)){
@@ -106,20 +110,4 @@ public class Configuration {
 		}
 		return false;
 	}
-	
-	
-	/**
-	 * 
-	 * 
-	 * 
-    public static String namespace="com.jack.app.dao.UserDao";
-	
-	public void scanner(){
-		
-	}
-	static{
-		//模拟xml中的id与sql语句
-		mapStateMent.put("getUserById", "select * from mall_user where user_id = ?");
-	}
-	 */
 }

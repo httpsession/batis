@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 import com.jack.batis.utils.Action;
 
 /** 
+*   被标记的方法执行删除操作
 * @author	longjie 
 * @date 	2019年1月6日 上午10:10:26 
 */

@@ -1,5 +1,10 @@
 package com.jack.batis.beans;
 
+/**
+ * bean包装类
+ * @author lilongjie
+ *
+ */
 public interface JackBean<T> {
 	
 	T getInstance();

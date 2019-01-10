@@ -6,8 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /** 
+* 被@Service标记的类属于bean的范畴
 * @author	longjie 
-s* @date 	2019年1月8日 下午11:41:51 
+* @date 	2019年1月8日 下午11:41:51 
 */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

@@ -69,6 +69,7 @@ public class SqlSession {
 	 */
 	private String processSql(Method method,String sql,Object[] args){
 		Parameter[] params = method.getParameters();
+		//参数与参数值
 		HashMap<String,String> paramAndValuePair=new HashMap<String,String>();
 		String processedSql=null;
 		if(params.length==args.length) {
@@ -81,6 +82,11 @@ public class SqlSession {
 		return processedSql;
 	}
 	
+	/**
+	   *    返回dao层接口的动态代理实例
+	 * @param clazz
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public <T> T getMapper(Class<T> clazz){
 		return (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new MapperHandler(this));

@@ -14,11 +14,20 @@ import com.google.common.base.CaseFormat;
 import com.jack.batis.jdbc.ConnectionPool;
 
 /**
+ * SQL执行器
  * @author longjie
  * @date 2018年12月25日 下午4:20:45
  */
 public class SimpleExcutor implements Excutor {
 
+	/**
+	 * 查询操作方法
+	 * 
+	 */
+	/**
+	 * @param sql 将要执行的SQL语句
+	 * @param beanClz 结果集要映射成的javaBean类
+	 */
 	public  <T> List<T> select(String sql, Class<T> beanClz) {
 		PreparedStatement preparedStatement = null;
 		ResultSet set = null;
@@ -85,11 +94,12 @@ public class SimpleExcutor implements Excutor {
 		PropertyDescriptor pd = null;
 		//遍历列
 		for (int i = 1; i <= cols; ++i) {
+			//将列名转换成驼峰类型命名
 			columnName=CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, metaData.getColumnName(i));
 			pd = new PropertyDescriptor(columnName, beanClz);
-			Method wM = pd.getWriteMethod();
-			//将查询出来的值保存到bean属性中
-			wM.invoke(bean, resultSet.getString(i));
+			Method method = pd.getWriteMethod();
+			//将查询出来的值赋值到bean属性中
+			method.invoke(bean, resultSet.getString(i));
 		}
 		return bean;
 	}

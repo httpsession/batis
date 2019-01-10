@@ -1,7 +1,6 @@
 package com.jack.app.domain;
 /** 
 * @author	longjie 
-* @mail 	httpsession@qq.com
 * @date 	2018年11月24日 下午8:23:43 
 */
 public class User {

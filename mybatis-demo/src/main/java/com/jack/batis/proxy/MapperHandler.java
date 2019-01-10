@@ -10,7 +10,10 @@ import com.jack.batis.utils.ActionAndSql;
 
 /** 
 * @author	longjie 
-* @date 	2018年12月25日 下午5:43:13 
+* @date 	2018年12月25日 下午5:43:13
+* 
+* dao层接口的动态代理类的调用处理器 
+* 
 */
 public class MapperHandler implements InvocationHandler {
 	

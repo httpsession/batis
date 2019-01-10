@@ -9,7 +9,6 @@ import com.jack.batis.annotation.sql.Select;
 
 /** 
 * @author	longjie 
-* @mail 	httpsession@qq.com
 * @date 	2018年12月25日 下午3:02:20 
 */
 @Mapper

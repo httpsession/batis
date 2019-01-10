@@ -6,9 +6,15 @@ import com.jack.batis.core.SqlSession;
 
 public class Batis {
 	private static SqlSession session;
+	
+	/**
+	 * batis初始化
+	 * 
+	 * @param mapperPath  mapper所在的包路径
+	 */
 	public static void init(String mapperPath) {
 		if(Strings.isNullOrEmpty(mapperPath)) {
-			throw new RuntimeException("Failed to load Batis because mapper path is null!");
+			throw new RuntimeException("Failed to init Batis because mapper path is null!");
 		}
 		Configuration.mapperScanner(mapperPath);
 		session = new SqlSession();

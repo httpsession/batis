@@ -1,5 +1,10 @@
 package com.jack.batis.beans;
 
+/**
+  *    默认的bean包装类
+ * @author lilongjie
+ *
+ */
 public class DufaultJackBean<T> implements JackBean<T> {
 	
 	private String beanClassName;
@@ -9,7 +14,7 @@ public class DufaultJackBean<T> implements JackBean<T> {
 	private boolean isPrimary;
 	
 	private boolean isAbstract;
-	
+	///被包装bean的实例
 	private T instance;
 
 	public String getBeanClassName() {
