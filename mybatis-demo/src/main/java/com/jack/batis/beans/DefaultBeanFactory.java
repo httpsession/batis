@@ -51,6 +51,7 @@ public class DefaultBeanFactory implements BeanFactory{
 					bean.setParentName(null);
 				}
 				bean.setBeanClassName(clz.getName());
+				//如果是Mapper，则去拿代理类的实例
 				if(clz.isAnnotationPresent(Mapper.class)) {
 					bean.setInstance(Batis.getMapper(clz));
 				}else {
@@ -90,6 +91,11 @@ public class DefaultBeanFactory implements BeanFactory{
 		//System.out.println("beanContainer: "+json);
 	}
 
+	/**
+	  *   如果类属于bean，则返回ture
+	 * @param clz
+	 * @return
+	 */
 	private static boolean isBean(Class<?> clz) {
 		Objects.requireNonNull(clz);
 		if(clz.isAnnotationPresent(Bean.class)||clz.isAnnotationPresent(Mapper.class)||clz.isAnnotationPresent(Service.class)) {
