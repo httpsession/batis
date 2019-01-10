@@ -77,7 +77,13 @@ public class DefaultBeanFactory implements BeanFactory{
 				if(field.isAnnotationPresent(Autowired.class)){
 					Class<?> type = field.getType();
 					Object fieldValue = beanContainer.get(type.getName()).getInstance();
-					field.set(bean.getInstance(), fieldValue);
+					field.setAccessible(true);
+					if(bean!=null) {
+						field.set(bean.getInstance(), fieldValue);
+					}else {
+						field.set(null, fieldValue);
+					}
+					
 				}
 			}
 		}

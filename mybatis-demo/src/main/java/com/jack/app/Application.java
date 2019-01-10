@@ -16,7 +16,7 @@ public class Application {
 	
 	public static void main(String[] args) {
 		init();
-		List<User> result = userService.getUserById("");
+		List<User> result = userService.getUserById("6");
 		String json = JSONObject.toJSONString(result);
 		System.out.println(json);
 	}

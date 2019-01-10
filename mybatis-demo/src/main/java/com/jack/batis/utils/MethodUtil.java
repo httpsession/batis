@@ -15,6 +15,8 @@ public class MethodUtil {
 			int end=genericReturnType.indexOf(">");
 			if(start>-1&&start<end) {
 				return genericReturnType.substring(start+1, end);
+			}else {
+				return genericReturnType;
 			}
 		}
 		return null;

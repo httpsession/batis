@@ -10,13 +10,14 @@ import com.jack.batis.annotation.Service;
 
 @Service
 public class UserService {
+	
 	@Autowired
 	UserDao userDao;
 	
 	public List<User> getUserById(String userId){
-		if(!Strings.isNullOrEmpty(userId)) {
-			return userDao.getUserById(userId);
+		if(Strings.isNullOrEmpty(userId)) {
+			throw new RuntimeException("param userId is not allow be null or empty!");
 		}
-		return null;
+		return userDao.getUserById(userId);
 	}
 }
